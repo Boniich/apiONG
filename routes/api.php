@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
@@ -28,6 +29,12 @@ Route::delete('members/{id}', [MemberController::class, 'delete']);
 
 Route::get('organization', [OrganizationController::class, 'index']);
 Route::put('organization', [OrganizationController::class, 'update']);
+
+Route::get('contact', [ContactController::class, 'index']);
+Route::get('contact/{id}', [ContactController::class, 'show']);
+Route::post('contact', [ContactController::class, 'store']);
+Route::put('contact/{id}', [ContactController::class, 'update']);
+Route::delete('contact/{id}', [ContactController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
