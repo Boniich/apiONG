@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ Route::get('members/{id}', [MemberController::class, 'show']);
 Route::post('members', [MemberController::class, 'store']);
 Route::put('members/{id}', [MemberController::class, 'update']);
 Route::delete('members/{id}', [MemberController::class, 'delete']);
+
+Route::get('organization', [OrganizationController::class, 'show']);
+Route::put('organization', [OrganizationController::class, 'update']);
 
 Route::fallback(function () {
     return response()->json([
