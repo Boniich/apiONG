@@ -101,6 +101,8 @@ class ContactController extends Controller
                 return notFoundData404($this->notFoundMsg);
             }
 
+            $contact->delete();
+
             return okResponse200($contact, "Contact deleted successfully");
         } catch (\Throwable $th) {
 
