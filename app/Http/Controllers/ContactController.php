@@ -8,14 +8,16 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
 
+    private string $notFoundMsg = "Contact not found";
+
     public function index()
     {
         try {
             $contacts = Contact::all();
 
-            return response()->json(successResponse($contacts, "contacts retrived successfully"));
+            return okResponse200($contacts, "contacts retrived successfully");
         } catch (\Throwable $th) {
-            return response()->json(errorResponse("An Error Ocurred"));
+            return anErrorOcurred();
         }
     }
 
@@ -25,12 +27,12 @@ class ContactController extends Controller
             $contact = Contact::find($id);
 
             if (is_null($contact)) {
-                return response()->json(errorResponse("Contact not found"), 404);
+                return notFoundData404($this->notFoundMsg);
             }
 
-            return response()->json(successResponse($contact, "Contact retrived successfully"));
+            return okResponse200($contact, "Contact retrived successfully");
         } catch (\Throwable $th) {
-            return response()->json(errorResponse("An Error occurred"));
+            return anErrorOcurred();
         }
     }
 
@@ -53,7 +55,7 @@ class ContactController extends Controller
 
             $newContact->save();
 
-            return response()->json(successResponse($newContact, "Contact created successfully"));
+            return okResponse200($newContact, "Contact created successfully");
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
@@ -73,7 +75,7 @@ class ContactController extends Controller
             $contact = Contact::find($id);
 
             if (is_null($contact)) {
-                return response()->json(errorResponse("Contact not found"), 404);
+                return notFoundData404($this->notFoundMsg);
             }
 
             $contact->name = $request->name;
@@ -96,7 +98,7 @@ class ContactController extends Controller
             $contact = Contact::find($id);
 
             if (is_null($contact)) {
-                return notFoundData404("Contact not found");
+                return notFoundData404($this->notFoundMsg);
             }
 
             return okResponse200($contact, "Contact deleted successfully");
