@@ -8,15 +8,10 @@ use Illuminate\Http\Request;
 class OrganizationController extends Controller
 {
 
-    public function show()
+    public function index()
     {
         try {
-            $id = 1;
-            $organization = Organization::find($id);
-
-            if (is_null($organization)) {
-                return response()->json(errorResponse("Organization data not found"), 404);
-            }
+            $organization = Organization::all();
 
             return response()->json(successResponse($organization, "Organization retrived successfully"));
         } catch (\Throwable $th) {

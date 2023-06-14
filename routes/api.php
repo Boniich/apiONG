@@ -26,7 +26,7 @@ Route::post('members', [MemberController::class, 'store']);
 Route::put('members/{id}', [MemberController::class, 'update']);
 Route::delete('members/{id}', [MemberController::class, 'delete']);
 
-Route::get('organization', [OrganizationController::class, 'show']);
+Route::get('organization', [OrganizationController::class, 'index']);
 Route::put('organization', [OrganizationController::class, 'update']);
 
 Route::fallback(function () {
