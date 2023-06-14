@@ -23,6 +23,14 @@ if (!function_exists('okResponse200')) {
     }
 }
 
+if (!function_exists('anErrorOcurred')) {
+    function anErrorOcurred()
+    {
+        return response()->json(errorResponse("An Error Ocurred"));
+    }
+}
+
+
 if (!function_exists('notFoundData404')) {
     function notFoundData404(string $message)
     {
