@@ -18,7 +18,7 @@ class OrganizationSeeder extends Seeder
 
         $organization->id = 1;
         $organization->name = "Org name";
-        $organization->logo = "logo"; //should be an image
+        $organization->logo = upLoadImageToSeeders("organization");
         $organization->short_description = "short description";
         $organization->long_description = "long description";
         $organization->welcome_text = "welcome text";
