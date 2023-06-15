@@ -25,7 +25,7 @@ class OrganizationController extends Controller
 
             $request->validate([
                 'name' => 'required|string',
-                'logo' => 'required|string',
+                'logo' => 'required|image',
                 'short_description' => 'required|string',
                 'long_description' => 'required|string',
                 'welcome_text' => 'required|string',
@@ -46,7 +46,7 @@ class OrganizationController extends Controller
             }
 
             $organization->name = $request->name;
-            $organization->logo = $request->logo; //should be an image
+            $organization->logo = updateLoadedImage($organization->logo, $request->logo);
             $organization->short_description = $request->name;
             $organization->long_description = $request->name;
             $organization->welcome_text = $request->name;
