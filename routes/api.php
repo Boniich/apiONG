@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,13 @@ Route::get('contact/{id}', [ContactController::class, 'show']);
 Route::post('contact', [ContactController::class, 'store']);
 Route::put('contact/{id}', [ContactController::class, 'update']);
 Route::delete('contact/{id}', [ContactController::class, 'delete']);
+
+
+Route::get('testimonial', [TestimonialController::class, 'index']);
+Route::get('testimonial/{id}', [TestimonialController::class, 'show']);
+Route::post('testimonial', [TestimonialController::class, 'store']);
+Route::put('testimonial/{id}', [TestimonialController::class, 'update']);
+Route::delete('testimonial/{id}', [TestimonialController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
