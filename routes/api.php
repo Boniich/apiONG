@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\SocialMediaItemController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,13 @@ Route::get('testimonial/{id}', [TestimonialController::class, 'show']);
 Route::post('testimonial', [TestimonialController::class, 'store']);
 Route::put('testimonial/{id}', [TestimonialController::class, 'update']);
 Route::delete('testimonial/{id}', [TestimonialController::class, 'delete']);
+
+
+Route::get('socialMediaItem', [SocialMediaItemController::class, 'index']);
+Route::get('socialMediaItem/{id}', [SocialMediaItemController::class, 'show']);
+Route::post('socialMediaItem', [SocialMediaItemController::class, 'store']);
+Route::put('socialMediaItem/{id}', [SocialMediaItemController::class, 'update']);
+Route::delete('socialMediaItem/{id}', [SocialMediaItemController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
