@@ -24,14 +24,14 @@ class MemberTest extends TestCase
     public function test_show_one_member_by_id_successfully(): void
     {
         $this->seed();
-        $response = $this->get('api/members/' . 2);
+        $response = $this->get('api/members/' . 1);
 
         $response->assertStatus(200);
     }
 
     public function test_not_found_member_to_show_details_successfully()
     {
-        $response = $this->get('api/members/' . 3);
+        $response = $this->get('api/members/' . 1);
 
         $response->assertStatus(404);
     }
