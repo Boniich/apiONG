@@ -74,6 +74,16 @@ class TestimonialTest extends TestCase
         deleteLoadedImage($imageCreated->image);
     }
 
+    public function test_not_found_data_testimonial_to_update_successfully()
+    {
+        $this->seed(TestimonialSeeder::class);
+        $this->put($this->path . 100, [
+            'name' => 'Testimonial test',
+            'image' => UploadedFile::fake()->image("img.png"),
+            'description' => 'testing create a testimonial',
+        ])->assertStatus(404);
+    }
+
     public function test_bad_request_at_update_testimonial()
     {
         $this->seed(TestimonialSeeder::class);
