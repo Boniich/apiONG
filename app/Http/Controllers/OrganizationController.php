@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
 {
+
+    private string $notFoundMsg = "Organization not found";
 
     public function index()
     {
@@ -39,11 +42,7 @@ class OrganizationController extends Controller
             ]);
 
             $id = 1;
-            $organization = Organization::find($id);
-
-            if (is_null($organization)) {
-                return response()->json(errorResponse("Organization not found"), 404);
-            }
+            $organization = Organization::findOrFail($id);
 
             $organization->name = $request->name;
             $organization->logo = updateLoadedImage($organization->logo, $request->logo);
@@ -61,6 +60,8 @@ class OrganizationController extends Controller
             $organization->update();
 
             return response()->json(successResponse($organization, 'Organization updated successfully'));
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
             return response()->json(errorResponse("Bad Request"), 400);
         }

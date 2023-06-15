@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -24,13 +25,11 @@ class ContactController extends Controller
     public function show($id)
     {
         try {
-            $contact = Contact::find($id);
-
-            if (is_null($contact)) {
-                return notFoundData404($this->notFoundMsg);
-            }
+            $contact = Contact::findOrFail($id);
 
             return okResponse200($contact, "Contact retrived successfully");
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
             return anErrorOcurred();
         }
@@ -72,11 +71,7 @@ class ContactController extends Controller
                 'message' => 'required|string|max:400',
             ]);
 
-            $contact = Contact::find($id);
-
-            if (is_null($contact)) {
-                return notFoundData404($this->notFoundMsg);
-            }
+            $contact = Contact::findOrFail($id);
 
             $contact->name = $request->name;
             $contact->email = $request->email;
@@ -86,6 +81,8 @@ class ContactController extends Controller
             $contact->update();
 
             return okResponse200($contact, "Contact updated successfully");
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
 
             return badRequestResponse400();
@@ -95,15 +92,13 @@ class ContactController extends Controller
     public function delete($id)
     {
         try {
-            $contact = Contact::find($id);
-
-            if (is_null($contact)) {
-                return notFoundData404($this->notFoundMsg);
-            }
+            $contact = Contact::findOrFail($id);
 
             $contact->delete();
 
             return okResponse200($contact, "Contact deleted successfully");
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
 
             return badRequestResponse400();

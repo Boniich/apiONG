@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+
+    private string $notFoundMsg = "Member not found";
+
     public function index()
     {
         try {
@@ -21,13 +25,11 @@ class MemberController extends Controller
     public function show($id)
     {
         try {
-            $member = Member::find($id);
-
-            if (is_null($member)) {
-                return response()->json(errorResponse("Member not found"), 404);
-            }
+            $member = Member::findOrFail($id);
 
             return response()->json(successResponse($member, "Member retrived successfully"));
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
             return response()->json(errorResponse("An Error occurred"));
         }
@@ -72,11 +74,7 @@ class MemberController extends Controller
                 'linkedin_url' => 'required|string',
             ]);
 
-            $member = Member::find($id);
-
-            if (is_null($member)) {
-                return response()->json(errorResponse("Member not found"), 404);
-            }
+            $member = Member::findOrFail($id);
 
             $member->full_name = $request->full_name;
             $member->description = $request->description;
@@ -88,6 +86,8 @@ class MemberController extends Controller
 
 
             return response()->json(successResponse($member, "Member updated successfully"));
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
 
             return response()->json(errorResponse("Bad Request"), 400);
@@ -97,16 +97,14 @@ class MemberController extends Controller
     public function delete($id)
     {
         try {
-            $member = Member::find($id);
-
-            if (is_null($member)) {
-                return response()->json(errorResponse("Member not found"), 404);
-            }
+            $member = Member::findOrFail($id);
 
             deleteLoadedImage($member->image);
             $member->delete();
 
             return response()->json(successResponse($member, "Member deleted successfully"));
+        } catch (ModelNotFoundException $ex) {
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
             return response()->json(errorResponse("An error has occurred"));
         }
