@@ -15,6 +15,7 @@ class TestimonialSeeder extends Seeder
     {
         $testimonial = new Testimonial;
 
+        $testimonial->id = 1;
         $testimonial->name = "Testimonio 1";
         $testimonial->image = upLoadImageToSeeders("testimonial");
         $testimonial->description = "Descripcion del testimonio 1";
