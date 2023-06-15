@@ -15,11 +15,16 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $path = storage_path('app/public/image.png');
+        $nameImage = "image-member-seeder.png";
+
         $member = new Member();
 
+        $member->id = 1;
         $member->full_name = "Mario Hernandez";
         $member->description = "Director de la ONG";
-        $member->image = "image a cargar";
+        $member->image =  Storage::disk('public')->put($nameImage, file_get_contents($path));
         $member->facebook_url = "facebook de mario";
         $member->linkedin_url = "linkedin de mario";
 
