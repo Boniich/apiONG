@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SocialMediaItemController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Http\Request;
@@ -51,6 +52,12 @@ Route::get('socialMediaItem/{id}', [SocialMediaItemController::class, 'show']);
 Route::post('socialMediaItem', [SocialMediaItemController::class, 'store']);
 Route::put('socialMediaItem/{id}', [SocialMediaItemController::class, 'update']);
 Route::delete('socialMediaItem/{id}', [SocialMediaItemController::class, 'delete']);
+
+Route::get('projects', [ProjectController::class, 'index']);
+Route::get('projects/{id}', [ProjectController::class, 'show']);
+Route::post('projects', [ProjectController::class, 'store']);
+Route::put('projects/{id}', [ProjectController::class, 'update']);
+Route::delete('projects/{id}', [ProjectController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
