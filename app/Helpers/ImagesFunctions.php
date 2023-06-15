@@ -37,3 +37,14 @@ if (!function_exists('updateLoadedImage')) {
         return $imageName;
     }
 }
+
+if (!function_exists('upLoadImageToSeeders')) {
+    function upLoadImageToSeeders($nameImage)
+    {
+        $path = storage_path('app/public/image.png');
+        $image = "image-" . $nameImage . "-seeder.png";
+        Storage::disk('public')->put($image, file_get_contents($path));
+
+        return $image;
+    }
+}
