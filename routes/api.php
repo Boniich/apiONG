@@ -33,25 +33,25 @@ Route::delete('members/{id}', [MemberController::class, 'delete']);
 Route::get('organization', [OrganizationController::class, 'index']);
 Route::put('organization', [OrganizationController::class, 'update']);
 
-Route::get('contact', [ContactController::class, 'index']);
-Route::get('contact/{id}', [ContactController::class, 'show']);
-Route::post('contact', [ContactController::class, 'store']);
-Route::put('contact/{id}', [ContactController::class, 'update']);
-Route::delete('contact/{id}', [ContactController::class, 'delete']);
+Route::get('contacts', [ContactController::class, 'index']);
+Route::get('contacts/{id}', [ContactController::class, 'show']);
+Route::post('contacts', [ContactController::class, 'store']);
+Route::put('contacts/{id}', [ContactController::class, 'update']);
+Route::delete('contacts/{id}', [ContactController::class, 'delete']);
 
 
-Route::get('testimonial', [TestimonialController::class, 'index']);
-Route::get('testimonial/{id}', [TestimonialController::class, 'show']);
-Route::post('testimonial', [TestimonialController::class, 'store']);
-Route::put('testimonial/{id}', [TestimonialController::class, 'update']);
-Route::delete('testimonial/{id}', [TestimonialController::class, 'delete']);
+Route::get('testimonials', [TestimonialController::class, 'index']);
+Route::get('testimonials/{id}', [TestimonialController::class, 'show']);
+Route::post('testimonials', [TestimonialController::class, 'store']);
+Route::put('testimonials/{id}', [TestimonialController::class, 'update']);
+Route::delete('testimonials/{id}', [TestimonialController::class, 'delete']);
 
 
-Route::get('socialMediaItem', [SocialMediaItemController::class, 'index']);
-Route::get('socialMediaItem/{id}', [SocialMediaItemController::class, 'show']);
-Route::post('socialMediaItem', [SocialMediaItemController::class, 'store']);
-Route::put('socialMediaItem/{id}', [SocialMediaItemController::class, 'update']);
-Route::delete('socialMediaItem/{id}', [SocialMediaItemController::class, 'delete']);
+Route::get('socialMediaItems', [SocialMediaItemController::class, 'index']);
+Route::get('socialMediaItems/{id}', [SocialMediaItemController::class, 'show']);
+Route::post('socialMediaItems', [SocialMediaItemController::class, 'store']);
+Route::put('socialMediaItems/{id}', [SocialMediaItemController::class, 'update']);
+Route::delete('socialMediaItems/{id}', [SocialMediaItemController::class, 'delete']);
 
 Route::get('projects', [ProjectController::class, 'index']);
 Route::get('projects/{id}', [ProjectController::class, 'show']);
