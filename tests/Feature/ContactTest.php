@@ -12,7 +12,7 @@ class ContactTest extends TestCase
 
     use RefreshDatabase;
 
-    private string $url = 'api/contact/';
+    private string $url = 'api/contacts/';
 
     public function test_show_all_contacts_successfully(): void
     {

@@ -14,7 +14,7 @@ class TestimonialTest extends TestCase
 
     use RefreshDatabase;
 
-    private string $path = 'api/testimonial/';
+    private string $path = 'api/testimonials/';
 
     public function test_show_all_testimonial_successfully(): void
     {

@@ -14,7 +14,7 @@ class SocialMediaItemTest extends TestCase
 
     use RefreshDatabase;
 
-    private string $path = 'api/socialMediaItem/';
+    private string $path = 'api/socialMediaItems/';
 
     public function test_show_all_social_media_items_successfully(): void
     {
