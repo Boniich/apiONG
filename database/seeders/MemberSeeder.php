@@ -10,22 +10,15 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class MemberSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-
-        $path = storage_path('app/public/image.png');
-        $nameImage = "image-member-seeder.png";
-        Storage::disk('public')->put($nameImage, file_get_contents($path));
 
         $member = new Member();
 
         $member->id = 1;
         $member->full_name = "Mario Hernandez";
         $member->description = "Director de la ONG";
-        $member->image = $nameImage;
+        $member->image = upLoadImageToSeeders("member");
         $member->facebook_url = "facebook de mario";
         $member->linkedin_url = "linkedin de mario";
 
