@@ -16,7 +16,7 @@ class ProjectSeeder extends Seeder
         $project = new Project;
 
         $project->id = 1;
-        $project->name = "Project 1";
+        $project->title = "Project 1";
         $project->description = "Description of project 1";
         $project->image = upLoadImageToSeeders("projects");
         $project->due_date = "2023";
