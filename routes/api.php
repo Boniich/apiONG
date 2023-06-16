@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SocialMediaItemController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Http\Request;
@@ -58,6 +59,11 @@ Route::get('projects/{id}', [ProjectController::class, 'show']);
 Route::post('projects', [ProjectController::class, 'store']);
 Route::put('projects/{id}', [ProjectController::class, 'update']);
 Route::delete('projects/{id}', [ProjectController::class, 'delete']);
+
+
+Route::get('roles', [RoleController::class, 'index']);
+Route::get('roles/{id}', [RoleController::class, 'show']);
+Route::put('roles/{id}', [RoleController::class, 'update']);
 
 Route::fallback(function () {
     return response()->json([
