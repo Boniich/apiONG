@@ -10,12 +10,18 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
+    private array $roleDataHidding = ['created_at', 'updated_at', 'pivot', 'guard_name'];
+
     private string  $notFoundMsg = "User not found";
 
     public function index()
     {
         try {
             $users = User::all();
+
+            foreach ($users as $key => $value) {
+                $users[$key]->roles->makeHidden($this->roleDataHidding);
+            }
 
             return okResponse200($users, "User retrived successfully");
         } catch (\Throwable $th) {
@@ -27,6 +33,8 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
+
+            $user->roles->makeHidden($this->roleDataHidding);
 
             return okResponse200($user, "User retrived successfully");
         } catch (ModelNotFoundException $ex) {
@@ -107,10 +115,12 @@ class UserController extends Controller
     public function detele($id)
     {
         try {
-            $newUser = User::findOrFail($id);
+            $user = User::findOrFail($id);
 
-            deleteLoadedImage($newUser->profile_image);
-            $newUser->delete();
+            $user->roles->makeHidden($this->roleDataHidding);
+
+            deleteLoadedImage($user->profile_image);
+            $user->delete();
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
