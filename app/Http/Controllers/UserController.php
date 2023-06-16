@@ -66,7 +66,7 @@ class UserController extends Controller
             $newUser->latitude = $request->latitude;
             $newUser->longitude = $request->longitude;
             $newUser->address = $request->address;
-            $newUser->profile_image = $request->image;
+            $newUser->profile_image = upLoadImage($request->image);
 
             $newUser->save();
 
