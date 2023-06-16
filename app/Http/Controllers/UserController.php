@@ -51,11 +51,11 @@ class UserController extends Controller
                 'name' => 'required|string',
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
-                'role_id' => 'integer|min:1',
                 'latitude' => 'integer|min:0',
                 'longitude' => 'integer|min:0',
                 'address' => 'string',
                 'profile_image' => 'image',
+                'role_id' => 'required|integer|min:1',
             ]);
 
             $newUser = new User;
@@ -63,13 +63,17 @@ class UserController extends Controller
             $newUser->name = $request->name;
             $newUser->email = $request->email;
             $newUser->password = Hash::make($request->password);
-            $newUser->assigRole($request->role_id);
             $newUser->latitude = $request->latitude;
             $newUser->longitude = $request->longitude;
             $newUser->address = $request->address;
             $newUser->profile_image = $request->image;
 
             $newUser->save();
+
+            $newUser->assignRole($request->role_id);
+
+            $newUser->roles->makeHidden($this->roleDataHidding);
+
 
             return okResponse200($newUser, "User created succesffully");
         } catch (\Throwable $th) {
