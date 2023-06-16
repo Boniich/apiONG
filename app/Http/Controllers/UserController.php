@@ -85,30 +85,55 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string',
-                'email' => 'required|email|unique:users',
-                'password' => 'required',
-                'role_id' => 'integer|min:1',
+                'name' => 'string',
+                'email' => 'email|unique:users',
+                'password' => '',
                 'latitude' => 'integer|min:0',
                 'longitude' => 'integer|min:0',
                 'address' => 'string',
                 'profile_image' => 'image',
+                'role_id' => 'integer|min:1',
             ]);
 
-            $newUser = User::findOrFail($id);
 
-            $newUser->name = $request->name;
-            $newUser->email = $request->email;
-            $newUser->password = Hash::make($request->password);
-            $newUser->roles()->sync($request->role_id);
-            $newUser->latitude = $request->latitude;
-            $newUser->longitude = $request->longitude;
-            $newUser->address = $request->address;
-            $newUser->profile_image = $request->image;
+            $user = User::findOrFail($id);
 
-            $newUser->update();
+            if ($request->has('name')) {
+                $user->name = $request->name;
+            }
 
-            return okResponse200($newUser, "User created succesffully");
+            if ($request->has('email')) {
+                $user->email = $request->email;
+            }
+
+            if ($request->has('password')) {
+                $user->password = Hash::make($request->password);
+            }
+
+            if ($request->has('latitude')) {
+                $user->latitude = $request->latitude;
+            }
+
+            if ($request->has('longitude')) {
+                $user->longitude = $request->longitude;
+            }
+
+            if ($request->has('address')) {
+                $user->address = $request->address;
+            }
+
+            if ($request->has('image')) {
+                $user->profile_image = updateLoadedImage($user->profile_image, $request->image);
+            }
+
+            if ($request->has('role_id')) {
+                $user->roles()->sync($request->role_id);
+            }
+
+            $user->update();
+            $user->roles->makeHidden($this->roleDataHidding);
+
+            return okResponse200($user, "User created succesffully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
