@@ -75,7 +75,7 @@ class UserController extends Controller
             $newUser->roles->makeHidden($this->roleDataHidding);
 
 
-            return okResponse200($newUser, "User created succesffully");
+            return okResponse200($newUser, "User created succesfully");
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
@@ -133,7 +133,7 @@ class UserController extends Controller
             $user->update();
             $user->roles->makeHidden($this->roleDataHidding);
 
-            return okResponse200($user, "User created succesffully");
+            return okResponse200($user, "User created succesfully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
@@ -141,7 +141,7 @@ class UserController extends Controller
         }
     }
 
-    public function detele($id)
+    public function delete($id)
     {
         try {
             $user = User::findOrFail($id);
@@ -150,6 +150,8 @@ class UserController extends Controller
 
             deleteLoadedImage($user->profile_image);
             $user->delete();
+
+            return okResponse200($user, "User deleted successfully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
