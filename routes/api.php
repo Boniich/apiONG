@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SocialMediaItemController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +65,12 @@ Route::delete('projects/{id}', [ProjectController::class, 'delete']);
 Route::get('roles', [RoleController::class, 'index']);
 Route::get('roles/{id}', [RoleController::class, 'show']);
 Route::put('roles/{id}', [RoleController::class, 'update']);
+
+Route::get('users', [UserController::class, 'index']);
+Route::get('users/{id}', [UserController::class, 'show']);
+Route::post('users', [UserController::class, 'store']);
+Route::put('users/{id}', [UserController::class, 'update']);
+Route::delete('users/{id}', [UserController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
