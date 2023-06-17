@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->string('text', 70);
+            $table->string('image', 70)->nullable();
+            $table->boolean('visible');
+
+            $table->unsignedBigInteger('news_id')->nullable();
+            $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
