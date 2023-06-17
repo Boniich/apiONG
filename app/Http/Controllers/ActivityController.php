@@ -63,7 +63,7 @@ class ActivityController extends Controller
             }
 
             if ($request->has('category_id')) {
-                User::findOrFail($request->category_id);
+                Category::findOrFail($request->category_id);
 
                 $newActivity->user_id = $request->category_id;
             }
