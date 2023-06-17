@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
@@ -96,6 +97,13 @@ Route::post('activities', [ActivityController::class, 'store']);
 Route::put('activities/{id}', [ActivityController::class, 'update']);
 Route::patch('activities/{id}', [ActivityController::class, 'update']);
 Route::delete('activities/{id}', [ActivityController::class, 'delete']);
+
+Route::get('news', [NewsController::class, 'index']);
+Route::get('news/{id}', [NewsController::class, 'show']);
+Route::post('news', [NewsController::class, 'store']);
+Route::put('news/{id}', [NewsController::class, 'update']);
+Route::patch('news/{id}', [NewsController::class, 'update']);
+Route::delete('news/{id}', [NewsController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
