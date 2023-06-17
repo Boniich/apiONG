@@ -32,7 +32,7 @@ class ActivityController extends Controller
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
-            return badRequestResponse400();
+            return anErrorOcurred();
         }
     }
 
@@ -65,7 +65,7 @@ class ActivityController extends Controller
             if ($request->has('category_id')) {
                 Category::findOrFail($request->category_id);
 
-                $newActivity->user_id = $request->category_id;
+                $newActivity->category_id = $request->category_id;
             }
 
             $newActivity->save();
@@ -127,7 +127,7 @@ class ActivityController extends Controller
                     return notFoundData404("Category not found");
                 }
 
-                $activity->user_id = $request->category_id;
+                $activity->category_id = $request->category_id;
             }
 
 
@@ -149,10 +149,10 @@ class ActivityController extends Controller
             $activity->delete();
 
             return okResponse200($activity, "Activity deleted successfully");
-        } catch (ModelNotFoundException) {
+        } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
-            return badRequestResponse400();
+            return anErrorOcurred();
         }
     }
 }
