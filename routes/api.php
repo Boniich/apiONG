@@ -6,6 +6,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\SocialMediaItemController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserController;
@@ -80,6 +81,13 @@ Route::post('categories', [CategoryController::class, 'store']);
 Route::put('categories/{id}', [CategoryController::class, 'update']);
 Route::patch('categories/{id}', [CategoryController::class, 'update']);
 Route::delete('categories/{id}', [CategoryController::class, 'delete']);
+
+Route::get('slides', [SlideController::class, 'index']);
+Route::get('slides/{id}', [SlideController::class, 'show']);
+Route::post('slides', [SlideController::class, 'store']);
+Route::put('slides/{id}', [SlideController::class, 'update']);
+Route::patch('slides/{id}', [SlideController::class, 'update']);
+Route::delete('slides/{id}', [SlideController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
