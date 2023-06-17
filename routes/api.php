@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NewsController;
@@ -104,6 +105,14 @@ Route::post('news', [NewsController::class, 'store']);
 Route::put('news/{id}', [NewsController::class, 'update']);
 Route::patch('news/{id}', [NewsController::class, 'update']);
 Route::delete('news/{id}', [NewsController::class, 'delete']);
+
+
+Route::get('comments', [CommentController::class, 'index']);
+Route::get('comments/{id}', [CommentController::class, 'show']);
+Route::post('comments', [CommentController::class, 'store']);
+Route::put('comments/{id}', [CommentController::class, 'update']);
+Route::patch('comments/{id}', [CommentController::class, 'update']);
+Route::delete('comments/{id}', [CommentController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
