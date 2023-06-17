@@ -50,7 +50,7 @@ class CategoryController extends Controller
             $newCategory->description = $request->description;
 
             if ($request->has('image')) {
-                $newCategory->image = $request->image;
+                $newCategory->image = upLoadImage($request->image);
             }
 
             $newCategory->save();
@@ -89,7 +89,7 @@ class CategoryController extends Controller
             $newCategory->update();
             return okResponse200($category, "Categories updated succesfully");
         } catch (ModelNotFoundException $ex) {
-            notFoundData404($this->notFoundMsg);
+            return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
