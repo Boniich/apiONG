@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 70);
+            $table->string('description', 200);
+            $table->string('image', 70);
+            $table->integer('order');
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
