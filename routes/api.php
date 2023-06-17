@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
@@ -88,6 +89,13 @@ Route::post('slides', [SlideController::class, 'store']);
 Route::put('slides/{id}', [SlideController::class, 'update']);
 Route::patch('slides/{id}', [SlideController::class, 'update']);
 Route::delete('slides/{id}', [SlideController::class, 'delete']);
+
+Route::get('activities', [ActivityController::class, 'index']);
+Route::get('activities/{id}', [ActivityController::class, 'show']);
+Route::post('activities', [ActivityController::class, 'store']);
+Route::put('activities/{id}', [ActivityController::class, 'update']);
+Route::patch('activities/{id}', [ActivityController::class, 'update']);
+Route::delete('activities/{id}', [ActivityController::class, 'delete']);
 
 Route::fallback(function () {
     return response()->json([
