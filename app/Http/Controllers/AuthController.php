@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
+    private array $roleDataHidding = ['created_at', 'updated_at', 'pivot', 'guard_name'];
+
     /**
      * Register a new user.
      * @OA\Post(
@@ -59,6 +61,8 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
 
             $user->assignRole(2)->save();
+
+            $user->roles->makeHidden($this->roleDataHidding);
 
             return okResponse200($user, "User register successfully");
         } catch (\Throwable $th) {
