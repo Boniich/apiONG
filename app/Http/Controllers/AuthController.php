@@ -22,7 +22,7 @@ class AuthController extends Controller
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(
-     *          required={"name","email","password"},
+     *          required={"name","email","password","password_confirmation"},
      *          @OA\Property(property="name", type="string", format="string"),
      *          @OA\Property(property="email", type="string", format="string"),
      *          @OA\Property(property="password", type="string", format="string" ),
@@ -69,6 +69,37 @@ class AuthController extends Controller
             return badRequestResponse400();
         }
     }
+
+
+    /**
+     * Login User.
+     * @OA\Post(
+     *      path="/api/login",
+     *      summary="Login user",
+     *      tags={"Auth"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"email","password"},
+     *          @OA\Property(property="email", type="string", format="string"),
+     *          @OA\Property(property="password", type="string", format="string" ),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User login successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An error has occurred"
+     *      )
+     * )
+     */
 
     public function login(Request $request)
     {
