@@ -1,0 +1,31 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API ONG by Boniich",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "julio.yanez@codigoxules.org"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/activities": {
+            "get": {
+                "tags": [
+                    "activities"
+                ],
+                "summary": "Display a listing of activities.",
+                "description": "Display a listing of activities.",
+                "operationId": "53e7a0b67f6097ed90245000764b2e5e",
+                "responses": {
+                    "200": {
+                        "description": "Activities retrived succesffully"
+                    },
+                    "default": {
+                        "description": "An error ocurred"
+                    }
+                }
+            }
+        }
+    }
+}
