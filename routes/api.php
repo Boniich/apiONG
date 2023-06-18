@@ -75,7 +75,7 @@ Route::get('roles', [RoleController::class, 'index']);
 Route::get('roles/{id}', [RoleController::class, 'show']);
 Route::put('roles/{id}', [RoleController::class, 'update']);
 
-Route::get('users', [UserController::class, 'index']);
+Route::get('users/{search?}/{limit?}', [UserController::class, 'index']);
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::post('users', [UserController::class, 'store']);
 Route::put('users/{id}', [UserController::class, 'update']);

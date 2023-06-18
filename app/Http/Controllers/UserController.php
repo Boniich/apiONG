@@ -14,10 +14,14 @@ class UserController extends Controller
 
     private string  $notFoundMsg = "User not found";
 
-    public function index()
+    public function index($search = null, int $limit = 10)
     {
         try {
-            $users = User::all();
+            if (!is_null($search)) {
+                $users = User::where('name', 'LIKE', $search)->orWhere('email', 'LIKE', $search)->limit($limit)->get();
+            } else {
+                $users = User::limit($limit)->get();
+            }
 
             foreach ($users as $key => $value) {
                 $users[$key]->roles->makeHidden($this->roleDataHidding);
