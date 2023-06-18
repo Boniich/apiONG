@@ -9,6 +9,40 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
+    /**
+     * Register a new user.
+     * @OA\Post(
+     *      path="/api/register",
+     *      summary="Register a new user",
+     *      tags={"Auth"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"name","email","password"},
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="email", type="string", format="string"),
+     *          @OA\Property(property="password", type="string", format="string" ),
+     *          @OA\Property(property="password_confirmation", type="string", format="string" ),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User register successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An error has occurred"
+     *      )
+     * )
+     */
+
+
     public function register(Request $request)
     {
         try {
@@ -24,9 +58,9 @@ class AuthController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
 
-            $user->save();
+            $user->assignRole(2)->save();
 
-            return okResponse200($user, "User created successfully");
+            return okResponse200($user, "User register successfully");
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
