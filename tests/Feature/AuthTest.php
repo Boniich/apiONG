@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,7 @@ class AuthTest extends TestCase
 
     public function test_register_successfully(): void
     {
+        $this->seed(RoleSeeder::class);
         $this->post('api/register', [
             'name' => 'Testint test',
             'email' => 'test45@gmail.com',
