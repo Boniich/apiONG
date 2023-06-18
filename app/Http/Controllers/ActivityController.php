@@ -8,9 +8,55 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="API ONG by Boniich",
+ *      description="L5 Swagger OpenApi description",
+ *      @OA\Contact(
+ *          email="julio.yanez@codigoxules.org"
+ *      )
+ * )
+ */
+
+
+
 class ActivityController extends Controller
 {
     private string $notFoundMsg = "Activity not found";
+
+    /**
+     * Display a listing of activities.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/activities",
+     *     tags={"Activities"},
+     *     summary="Display a listing of activities.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Activities retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "Activity 1",
+     *                          "slug": "slug of activity1",
+     *                          "description": "Description of activity 1",
+     *                          "image": "image-activity-seeder.png",
+     *                          "user_id": null,
+     *                          "category_id": null,
+     *                          "created_at": "2023-06-17T18:25:27.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:27.000000Z"
+     *                      })},
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="An error ocurred"
+     *     )
+     * ) 
+     */
 
     public function index()
     {
@@ -22,6 +68,46 @@ class ActivityController extends Controller
             return anErrorOcurred();
         }
     }
+
+    /**
+     * Display an activities by id.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/activities/{id}",
+     *     tags={"Activities"},
+     *     summary="Display an activity.",
+     *     @OA\Parameter(
+     *          description="id of activity",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Activity retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "Activity 1",
+     *                          "slug": "slug of activity1",
+     *                          "description": "Description of activity 1",
+     *                          "image": "image-activity-seeder.png",
+     *                          "user_id": null,
+     *                          "category_id": null,
+     *                          "created_at": "2023-06-17T18:25:27.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:27.000000Z"
+     *       })},
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Activity not found"
+     *     )
+     * ) 
+     */
 
     public function show($id)
     {
@@ -35,6 +121,42 @@ class ActivityController extends Controller
             return anErrorOcurred();
         }
     }
+
+    /**
+     * Create a new activity.
+     * Note: This endpoint does not work in swagger cause is not possible upload an image here.
+     * @OA\Post(
+     *      path="/api/activities",
+     *      summary="Create a new activity",
+     *      tags={"Activities"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"id","name","slug","description", "image","user_id","category_id"},
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="slug", type="string", format="string" ),
+     *          @OA\Property(property="description", type="string", format="string" ),
+     *          @OA\Property(property="image", type="string", format="string" ),
+     *          @OA\Property(property="user_id", type="integer", format="string"),
+     *          @OA\Property(property="category_id", type="integer", format="string"),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Activity created successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An error has occurred"
+     *      )
+     * )
+     */
 
     public function store(Request $request)
     {
@@ -77,6 +199,49 @@ class ActivityController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Update an activity
+     * Note: This endpoint does not work in swagger if you add the field "image" cause is not possible upload an image here.
+     * @OA\Put(
+     *      path="/api/activities/{id}",
+     *      summary="Update an activity",
+     *      tags={"Activities"},
+     *      @OA\Parameter(
+     *          description="id of activity",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"id","name","slug","description", "image","user_id","category_id"},
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="slug", type="string", format="string" ),
+     *          @OA\Property(property="description", type="string", format="string" ),
+     *          @OA\Property(property="image", type="string", format="string" ),
+     *          @OA\Property(property="user_id", type="integer", format="integer"),
+     *          @OA\Property(property="category_id", type="integer", format="integer"),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Activity updated successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Activity not found"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     * )
+     */
+
 
     public function update(Request $request, $id)
     {
@@ -140,6 +305,37 @@ class ActivityController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Delete an activity
+     * @OA\Delete(
+     *      path="/api/activities/{id}",
+     *      summary="Delete an activity",
+     *      tags={"Activities"},
+     * 
+     *       @OA\Parameter(
+     *          description="id of activity",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Activity delete succesfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Activity not found"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An Error ocurred"
+     *      )
+     * )
+     */
+
+
     public function delete($id)
     {
         try {

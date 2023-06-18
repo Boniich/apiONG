@@ -12,17 +12,253 @@
         "/api/activities": {
             "get": {
                 "tags": [
-                    "activities"
+                    "Activities"
                 ],
                 "summary": "Display a listing of activities.",
                 "description": "Display a listing of activities.",
                 "operationId": "53e7a0b67f6097ed90245000764b2e5e",
                 "responses": {
                     "200": {
-                        "description": "Activities retrived succesffully"
+                        "description": "Activities retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "Activity 1",
+                                    "slug": "slug of activity1",
+                                    "description": "Description of activity 1",
+                                    "image": "image-activity-seeder.png",
+                                    "user_id": null,
+                                    "category_id": null,
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
                     },
                     "default": {
                         "description": "An error ocurred"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Create a new activity",
+                "description": "Create a new activity.\nNote: This endpoint does not work in swagger cause is not possible upload an image here.",
+                "operationId": "8aa12114961e22767ecdad7c24be367e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug",
+                                    "description",
+                                    "image",
+                                    "user_id",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Activity created successfully"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "default": {
+                        "description": "An error has occurred"
+                    }
+                }
+            }
+        },
+        "/api/activities/{id}": {
+            "get": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Display an activity.",
+                "description": "Display an activities by id.",
+                "operationId": "6d75cdd5535b9b12358448ec198faba4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of activity",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activity retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "Activity 1",
+                                    "slug": "slug of activity1",
+                                    "description": "Description of activity 1",
+                                    "image": "image-activity-seeder.png",
+                                    "user_id": null,
+                                    "category_id": null,
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Activity not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Update an activity",
+                "description": "Update an activity\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "064379988a5fe2c974ae5ab18f0cddfd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of activity",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "name",
+                                    "slug",
+                                    "description",
+                                    "image",
+                                    "user_id",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "format": "integer"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Activity updated successfully"
+                    },
+                    "404": {
+                        "description": "Activity not found"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Activities"
+                ],
+                "summary": "Delete an activity",
+                "description": "Delete an activity",
+                "operationId": "7f53993839aa9021a01ecd430efaad30",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of activity",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activity delete succesfully"
+                    },
+                    "404": {
+                        "description": "Activity not found"
+                    },
+                    "default": {
+                        "description": "An Error ocurred"
                     }
                 }
             }
