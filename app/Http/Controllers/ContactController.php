@@ -16,7 +16,7 @@ class ContactController extends Controller
         try {
             $contacts = Contact::all();
 
-            return okResponse200($contacts, "contacts retrived successfully");
+            return okResponse200($contacts, "Contacts retrived successfully");
         } catch (\Throwable $th) {
             return anErrorOcurred();
         }
@@ -65,18 +65,30 @@ class ContactController extends Controller
         try {
 
             $request->validate([
-                'name' => 'required|string',
-                'email' => 'required|string|email',
-                'phone' => 'required|string',
-                'message' => 'required|string|max:400',
+                'name' => 'string',
+                'email' => 'string|email',
+                'phone' => 'string',
+                'message' => 'string|max:400',
             ]);
 
             $contact = Contact::findOrFail($id);
 
-            $contact->name = $request->name;
-            $contact->email = $request->email;
-            $contact->phone = $request->phone;
-            $contact->message = $request->message;
+            if ($request->has('name')) {
+                $contact->name = $request->name;
+            }
+
+            if ($request->has('email')) {
+
+                $contact->email = $request->email;
+            }
+
+            if ($request->has('phone')) {
+                $contact->phone = $request->phone;
+            }
+
+            if ($request->has('message')) {
+                $contact->message = $request->message;
+            }
 
             $contact->update();
 
