@@ -258,20 +258,19 @@ class ActivityController extends Controller
             $activity = Activity::findOrFail($id);
 
 
-            if ($request->has($request->name)) {
+            if ($request->has('name')) {
                 $activity->name = $request->name;
             }
 
-            if ($request->has($request->slug)) {
+            if ($request->has('slug')) {
                 $activity->slug = $request->slug;
             }
 
-
-            if ($request->has($request->description)) {
+            if ($request->has('description')) {
                 $activity->description = $request->description;
             }
 
-            if ($request->has($request->image)) {
+            if ($request->has('image')) {
                 $activity->image = updateLoadedImage($activity->image, $request->image);
             }
 
