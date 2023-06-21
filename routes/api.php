@@ -58,11 +58,11 @@ Route::put('testimonials/{id}', [TestimonialController::class, 'update']);
 Route::delete('testimonials/{id}', [TestimonialController::class, 'delete']);
 
 
-Route::get('socialMediaItems', [SocialMediaItemController::class, 'index']);
-Route::get('socialMediaItems/{id}', [SocialMediaItemController::class, 'show']);
-Route::post('socialMediaItems', [SocialMediaItemController::class, 'store']);
-Route::put('socialMediaItems/{id}', [SocialMediaItemController::class, 'update']);
-Route::delete('socialMediaItems/{id}', [SocialMediaItemController::class, 'delete']);
+Route::get('socialmediaitems', [SocialMediaItemController::class, 'index']);
+Route::get('socialmediaitems/{id}', [SocialMediaItemController::class, 'show']);
+Route::post('socialmediaitems', [SocialMediaItemController::class, 'store']);
+Route::put('socialmediaitems/{id}', [SocialMediaItemController::class, 'update']);
+Route::delete('socialmediaitems/{id}', [SocialMediaItemController::class, 'delete']);
 
 Route::get('projects', [ProjectController::class, 'index']);
 Route::get('projects/{id}', [ProjectController::class, 'show']);
