@@ -1493,6 +1493,121 @@
                     }
                 }
             }
+        },
+        "/api/organization": {
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Display a organization.",
+                "description": "Display a Organization",
+                "operationId": "d7e9f6249d9c3e47bfbe93d7443024d5",
+                "responses": {
+                    "200": {
+                        "description": "Organization retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "new org",
+                                    "logo": "image.png",
+                                    "short_description": "short description",
+                                    "long_description": "long description",
+                                    "welcome_text": "welcome text",
+                                    "address": "Calle falsa 123",
+                                    "phone": "00000",
+                                    "cell_phone": "110000",
+                                    "facebook_url": "face",
+                                    "linkedin_url": "linkedin",
+                                    "instagram_url": "insta",
+                                    "twitter_url": "twitter",
+                                    "created_at": "2023-06-17T18:25:26.000000Z",
+                                    "updated_at": "2023-06-21T18:44:12.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error ocurred"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Update organization",
+                "description": "Update a organization data\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "28e1a67ef4657f1dc7b6210441a9719b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "log": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "short_description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "long_description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "welcome_text": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "cell_phone": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "facebook_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "instagram_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "twitter_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Organization updated successfully"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    }
+                }
+            }
         }
     }
 }
