@@ -26,7 +26,7 @@ if (!function_exists('okResponse200')) {
 if (!function_exists('anErrorOcurred')) {
     function anErrorOcurred()
     {
-        return response()->json(errorResponse("An Error Ocurred"));
+        return response()->json(errorResponse("An Error Ocurred"), 500);
     }
 }
 
