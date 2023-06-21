@@ -572,6 +572,230 @@
                     }
                 }
             }
+        },
+        "/api/comments": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Display a listing of comments.",
+                "description": "Display a listing of Comments.",
+                "operationId": "0406f270b674fae17bf23b4206a3004f",
+                "responses": {
+                    "200": {
+                        "description": "Comments retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "text": "comment 1",
+                                    "visible": true,
+                                    "image": "image-activity-seeder.png",
+                                    "news_id": 4,
+                                    "user_id": 2,
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error ocurred"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Create a new comment",
+                "description": "Create a new comment.\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "300619a0a4003920aafe960e45688102",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "text"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "news_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment created successfully"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "default": {
+                        "description": "An error has occurred"
+                    }
+                }
+            }
+        },
+        "/api/comments/{id}": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Display a comment.",
+                "description": "Display an comments by id.",
+                "operationId": "ca005bcffa22ab29b155dd7aa13b5d6e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of comment",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comment retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "text": "comment 1",
+                                    "visible": true,
+                                    "image": "image.png",
+                                    "news_id": 4,
+                                    "user_id": 2,
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Update an comment",
+                "description": "Update a comment\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "39e62963cbf897a1b2168683878e0a46",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of comment",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "text"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "news_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment updated successfully"
+                    },
+                    "404": {
+                        "description": "Comment not found"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Delete an activity",
+                "description": "Delete a comment",
+                "operationId": "ae800c7750c541bbe155602ffb488f9a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of comment",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comment delete succesfully"
+                    },
+                    "404": {
+                        "description": "Comment not found"
+                    },
+                    "default": {
+                        "description": "An Error ocurred"
+                    }
+                }
+            }
         }
     }
 }
