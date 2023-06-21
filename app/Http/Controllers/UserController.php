@@ -14,20 +14,21 @@ class UserController extends Controller
 
     private string  $notFoundMsg = "User not found";
 
-    public function index($search = null, int $limit = 10)
+    public function index(Request $request)
     {
         try {
-            if (!is_null($search)) {
-                $users = User::where('name', 'LIKE', $search)->orWhere('email', 'LIKE', $search)->limit($limit)->get();
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $users = User::where('name', 'LIKE', '%' . $searchTerm . '%')->orWhere('email', 'LIKE', $searchTerm)->limit(10)->get();
             } else {
-                $users = User::limit($limit)->get();
+                $users = User::limit(10)->get();
             }
 
             foreach ($users as $key => $value) {
                 $users[$key]->roles->makeHidden($this->roleDataHidding);
             }
 
-            return okResponse200($users, "User retrived successfully");
+            return okResponse200($users, "Users retrived successfully");
         } catch (\Throwable $th) {
             return anErrorOcurred();
         }
@@ -67,9 +68,18 @@ class UserController extends Controller
             $newUser->name = $request->name;
             $newUser->email = $request->email;
             $newUser->password = Hash::make($request->password);
-            $newUser->latitude = $request->latitude;
-            $newUser->longitude = $request->longitude;
-            $newUser->address = $request->address;
+
+            if ($request->has('latitude')) {
+                $newUser->latitude = $request->latitude;
+            }
+
+            if ($request->has('longitude')) {
+                $newUser->longitude = $request->longitude;
+            }
+
+            if ($request->has('address')) {
+                $newUser->address = $request->address;
+            }
 
             if ($request->has('profile_image')) {
                 $newUser->profile_image = upLoadImage($request->profile_image);
