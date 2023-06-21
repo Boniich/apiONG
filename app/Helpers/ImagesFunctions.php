@@ -19,10 +19,12 @@ if (!function_exists('deleteLoadedImage')) {
     function deleteLoadedImage($imageLoaded)
     {
 
-        $isThereAnImage = Storage::disk('public')->exists($imageLoaded);
+        if (!is_null($imageLoaded)) {
+            $isThereAnImage = Storage::disk('public')->exists($imageLoaded);
 
-        if ($isThereAnImage) {
-            Storage::disk('public')->delete($imageLoaded);
+            if ($isThereAnImage) {
+                Storage::disk('public')->delete($imageLoaded);
+            }
         }
     }
 }
