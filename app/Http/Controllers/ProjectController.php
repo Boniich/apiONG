@@ -106,10 +106,11 @@ class ProjectController extends Controller
 
     /**
      * Create a new project.
+     * Note: This endpoint does not work in swagger cause is not possible upload an image here.
      * @OA\Post(
      *      path="/api/projects",
      *      summary="Create a new project",
-     *      tags={"Project"},
+     *      tags={"Projects"},
      * 
      *      @OA\RequestBody(
      *          required=true,
