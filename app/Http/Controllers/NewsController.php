@@ -12,6 +12,39 @@ class NewsController extends Controller
 {
     private string $notFoundMsg = "News not found";
 
+    /**
+     * Display a listing of News.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/news",
+     *     tags={"News"},
+     *     summary="Display a listing of news.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="News retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "news 1",
+     *                          "slug": "slug of news 1",
+     *                          "content": "this is the content of news 1",
+     *                          "image": "14564943.png",
+     *                          "user_id": 2,
+     *                          "category_id": 4,
+     *                          "created_at": "2023-06-17T18:25:27.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:27.000000Z"
+     *                      })},
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="An error ocurred"
+     *     )
+     * ) 
+     */
+
     public function index()
     {
         try {
@@ -22,6 +55,47 @@ class NewsController extends Controller
             return anErrorOcurred();
         }
     }
+
+    /**
+     * Display a news by id.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/news/{id}",
+     *     tags={"News"},
+     *     summary="Display a news.",
+     *     @OA\Parameter(
+     *          description="id of news",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="News retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "news 1",
+     *                          "slug": "slug of news 1",
+     *                          "content": "this is the content of news 1",
+     *                          "image": "14564943.png",
+     *                          "user_id": 2,
+     *                          "category_id": 4,
+     *                          "created_at": "2023-06-17T18:25:27.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:27.000000Z"
+     *                      })},
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="News not found"
+     *     )
+     * ) 
+     */
+
 
     public function show($id)
     {
@@ -35,6 +109,42 @@ class NewsController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Create a new news.
+     * Note: This endpoint does not work in swagger cause is not possible upload an image here.
+     * @OA\Post(
+     *      path="/api/news",
+     *      summary="Create a new news",
+     *      tags={"News"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"name","slug","content","image"},
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="slug", type="string", format="string" ),
+     *          @OA\Property(property="content", type="string", format="string"),
+     *          @OA\Property(property="image", type="string", format="string"),
+     *          @OA\Property(property="user_id", type="integer", format="string"),
+     *          @OA\Property(property="category_id", type="integer", format="string"),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Comment created successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An error has occurred"
+     *      )
+     * )
+     */
 
     public function store(Request $request)
     {
@@ -80,6 +190,47 @@ class NewsController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Update a news
+     * Note: This endpoint does not work in swagger if you add the field "image" cause is not possible upload an image here.
+     * @OA\Put(
+     *      path="/api/news/{id}",
+     *      summary="Update a news",
+     *      tags={"News"},
+     *      @OA\Parameter(
+     *          description="id of news",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="slug", type="string", format="string" ),
+     *          @OA\Property(property="content", type="string", format="string"),
+     *          @OA\Property(property="image", type="string", format="string"),
+     *          @OA\Property(property="user_id", type="integer", format="string"),
+     *          @OA\Property(property="category_id", type="integer", format="string"),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="News updated successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="News not found"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     * )
+     */
 
     public function update(Request $request, $id)
     {
@@ -143,6 +294,36 @@ class NewsController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Delete a news
+     * @OA\Delete(
+     *      path="/api/news/{id}",
+     *      summary="Delete a news",
+     *      tags={"News"},
+     * 
+     *       @OA\Parameter(
+     *          description="id of news",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="News delete succesfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="News not found"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An Error ocurred"
+     *      )
+     * )
+     */
+
     public function delete($id)
     {
         try {

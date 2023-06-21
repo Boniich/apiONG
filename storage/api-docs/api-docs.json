@@ -1251,6 +1251,248 @@
                     }
                 }
             }
+        },
+        "/api/news": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Display a listing of news.",
+                "description": "Display a listing of News.",
+                "operationId": "9bfe744cf19dcb58e9ab9677c29ee6c7",
+                "responses": {
+                    "200": {
+                        "description": "News retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "news 1",
+                                    "slug": "slug of news 1",
+                                    "content": "this is the content of news 1",
+                                    "image": "14564943.png",
+                                    "user_id": 2,
+                                    "category_id": 4,
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error ocurred"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Create a new news",
+                "description": "Create a new news.\nNote: This endpoint does not work in swagger cause is not possible upload an image here.",
+                "operationId": "1c0fdf6cc53f1508a87121ef9111be5b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "slug",
+                                    "content",
+                                    "image"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment created successfully"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "default": {
+                        "description": "An error has occurred"
+                    }
+                }
+            }
+        },
+        "/api/news/{id}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Display a news.",
+                "description": "Display a news by id.",
+                "operationId": "235a202c862ec6888f4129413c1f2bcd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of news",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "News retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "news 1",
+                                    "slug": "slug of news 1",
+                                    "content": "this is the content of news 1",
+                                    "image": "14564943.png",
+                                    "user_id": 2,
+                                    "category_id": 4,
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Update a news",
+                "description": "Update a news\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "11a73338ef61a1ffd2ab3771639f638e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of news",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "slug": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "News updated successfully"
+                    },
+                    "404": {
+                        "description": "News not found"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Delete a news",
+                "description": "Delete a news",
+                "operationId": "dd0a1d22323f0d4809532cc29c2b7162",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of news",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "News delete succesfully"
+                    },
+                    "404": {
+                        "description": "News not found"
+                    },
+                    "default": {
+                        "description": "An Error ocurred"
+                    }
+                }
+            }
         }
     }
 }
