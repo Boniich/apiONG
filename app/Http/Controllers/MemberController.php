@@ -67,20 +67,35 @@ class MemberController extends Controller
         try {
 
             $request->validate([
-                'full_name' => 'required|string',
-                'description' => 'required|string',
-                'image' => 'required|image',
-                'facebook_url' => 'required|string',
-                'linkedin_url' => 'required|string',
+                'full_name' => 'string',
+                'description' => 'string',
+                'image' => 'image',
+                'facebook_url' => 'string',
+                'linkedin_url' => 'string',
             ]);
 
             $member = Member::findOrFail($id);
 
-            $member->full_name = $request->full_name;
-            $member->description = $request->description;
-            $member->image = updateLoadedImage($member->image, $request->image);
-            $member->facebook_url = $request->facebook_url;
-            $member->linkedin_url = $request->linkedin_url;
+
+            if ($request->has('full_name')) {
+                $member->full_name = $request->full_name;
+            }
+
+            if ($request->has('description')) {
+                $member->description = $request->description;
+            }
+
+            if ($request->has('image')) {
+                $member->image = updateLoadedImage($member->image, $request->image);
+            }
+
+            if ($request->has('facebook_url')) {
+                $member->facebook_url = $request->facebook_url;
+            }
+
+            if ($request->has('linkedin_url')) {
+                $member->linkedin_url = $request->linkedin_url;
+            }
 
             $member->update();
 
