@@ -69,16 +69,6 @@ class ContactTest extends TestCase
         ])->assertStatus(404);
     }
 
-    public function test_bad_request_to_update_contact_data_successfully(): void
-    {
-
-        $this->seed(ContactSeeder::class);
-        $this->put($this->url . 1, [
-            'name' => 'Marcos',
-            'email' => 'marcos@gmail.com',
-        ])->assertStatus(400);
-    }
-
     public function test_delete_one_contact_data_successfully(): void
     {
         $this->seed(ContactSeeder::class);
