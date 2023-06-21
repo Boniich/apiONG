@@ -11,6 +11,37 @@ class ContactController extends Controller
 
     private string $notFoundMsg = "Contact not found";
 
+    /**
+     * Display a listing of Contacts.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/contacts",
+     *     tags={"Contacts"},
+     *     summary="Display a listing of contacts.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contacts retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "Pedro",
+     *                          "email": "pedro@gmail.com",
+     *                          "phone": "000000",
+     *                          "message": "Hello",
+     *                          "created_at": "2023-06-17T18:25:27.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:27.000000Z"
+     *                      })},
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="An error ocurred"
+     *     )
+     * ) 
+     */
+
     public function index()
     {
         try {
@@ -21,6 +52,45 @@ class ContactController extends Controller
             return anErrorOcurred();
         }
     }
+
+
+    /**
+     * Display an contact by id.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/contacts/{id}",
+     *     tags={"Contacts"},
+     *     summary="Display a contact.",
+     *     @OA\Parameter(
+     *          description="id of contact",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contact retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "Pedro",
+     *                          "email": "pedro@gmail.com",
+     *                          "phone": "000000",
+     *                          "message": "Hello",
+     *                          "created_at": "2023-06-17T18:25:27.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:27.000000Z"
+     *                      })},
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Contact not found"
+     *     )
+     * ) 
+     */
 
     public function show($id)
     {
@@ -34,6 +104,39 @@ class ContactController extends Controller
             return anErrorOcurred();
         }
     }
+
+    /**
+     * Create a new contact.
+     * @OA\Post(
+     *      path="/api/contacts",
+     *      summary="Create a new contact",
+     *      tags={"Contacts"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"name","email","phone","message"},
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="email", type="string", format="string" ),
+     *          @OA\Property(property="phone", type="string", format="string"),
+     *          @OA\Property(property="message", type="string", format="string"),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Contact created successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An error has occurred"
+     *      )
+     * )
+     */
 
     public function store(Request $request)
     {
@@ -59,6 +162,44 @@ class ContactController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Update a contact
+     * @OA\Put(
+     *      path="/api/contacts/{id}",
+     *      summary="Update an contact",
+     *      tags={"Contacts"},
+     *      @OA\Parameter(
+     *          description="id of contact",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="email", type="string", format="string" ),
+     *          @OA\Property(property="phone", type="string", format="string"),
+     *          @OA\Property(property="message", type="string", format="string"),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Contact updated successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Contact not found"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     * )
+     */
 
     public function update(Request $request, $id)
     {
@@ -100,6 +241,35 @@ class ContactController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Delete a contact
+     * @OA\Delete(
+     *      path="/api/contacts/{id}",
+     *      summary="Delete a contact",
+     *      tags={"Contacts"},
+     * 
+     *       @OA\Parameter(
+     *          description="id of contact",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Contact deleted succesfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Contact not found"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An Error ocurred"
+     *      )
+     * )
+     */
 
     public function delete($id)
     {
