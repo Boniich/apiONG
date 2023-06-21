@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 
 class SlideController extends Controller
 {
-    private string $notFoundMsg = "Slider not found";
+    private string $notFoundMsg = "Slide not found";
 
     public function index()
     {
         try {
-            $sliders = Slide::all();
+            $slides = Slide::all();
 
-            return okResponse200($sliders, "Sliders retrived successfully");
+            return okResponse200($slides, "Slides retrived successfully");
         } catch (\Throwable $th) {
             return anErrorOcurred();
         }
@@ -25,9 +25,9 @@ class SlideController extends Controller
     public function show($id)
     {
         try {
-            $slider = Slide::findOrfail($id);
+            $slide = Slide::findOrfail($id);
 
-            return okResponse200($slider, "Slider retrived successfully");
+            return okResponse200($slide, "Slider retrived successfully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
@@ -46,22 +46,24 @@ class SlideController extends Controller
                 'user_id' => 'integer'
             ]);
 
-            $newSlider = new Slide;
+            $newSlide = new Slide;
 
-            $newSlider->name = $request->name;
-            $newSlider->description = $request->description;
-            $newSlider->image = upLoadImage($request->image);
-            $newSlider->order = $request->order;
+            $newSlide->name = $request->name;
+            $newSlide->description = $request->description;
+            $newSlide->image = upLoadImage($request->image);
+            $newSlide->order = $request->order;
 
             if ($request->has('user_id')) {
-                User::findOrFail($request->user_id);
+                if (is_null(User::find($request->user_id))) {
+                    return notFoundData404("User not found");
+                }
 
-                $newSlider->user_id = $request->user_id;
+                $newSlide->user_id = $request->user_id;
             }
 
-            $newSlider->save();
+            $newSlide->save();
 
-            return okResponse200($newSlider, "Slider created successfully");
+            return okResponse200($newSlide, "Slide created successfully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404("ID of USER not found");
         } catch (\Throwable $th) {
@@ -80,35 +82,38 @@ class SlideController extends Controller
                 'user_id' => 'integer'
             ]);
 
-            $slider = Slide::findOrFail($id);
+            $slide = Slide::findOrFail($id);
 
 
-            if ($request->has($request->name)) {
-                $slider->name = $request->name;
+            if ($request->has('name')) {
+                $slide->name = $request->name;
             }
 
-            if ($request->has($request->description)) {
-                $slider->description = $request->description;
+            if ($request->has('description')) {
+                $slide->description = $request->description;
             }
 
-            if ($request->has($request->image)) {
-                $slider->image = updateLoadedImage($slider->image, $request->image);
+            if ($request->has('image')) {
+                $slide->image = updateLoadedImage($slide->image, $request->image);
             }
 
-            if ($request->has($request->order)) {
-                $slider->order = $request->order;
+            if ($request->has('order')) {
+                $slide->order = $request->order;
             }
 
             if ($request->has('user_id')) {
-                User::findOrFail($request->user_id);
 
-                $slider->user_id = $request->user_id;
+                if (is_null(User::find($request->user_id))) {
+                    return notFoundData404("User not found");
+                }
+
+                $slide->user_id = $request->user_id;
             }
 
 
-            $slider->update();
+            $slide->update();
 
-            return okResponse200($slider, "Slider updated successfully");
+            return okResponse200($slide, "Slide updated successfully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
