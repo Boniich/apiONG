@@ -1018,6 +1018,239 @@
                     }
                 }
             }
+        },
+        "/api/members": {
+            "get": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Display a listing of members.",
+                "description": "Display a listing of members.",
+                "operationId": "20e6baf76421bba133e9048dcdbe7355",
+                "responses": {
+                    "200": {
+                        "description": "Members retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "full_name": "Pedro",
+                                    "description": "Pedro is important member",
+                                    "image": "image.png",
+                                    "facebook_url": "facebook",
+                                    "linkedin_url": "linkedin",
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error ocurred"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Create a new member",
+                "description": "Create a new member.\nNote: This endpoint does not work in swagger cause is not possible upload an image here.",
+                "operationId": "8d4f28b9a8881fef3a26990bc41f14ad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "full_name",
+                                    "description",
+                                    "image",
+                                    "facebook_url",
+                                    "linkedin_url"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "full_name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "facebook_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "linkedin_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Member created successfully"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "default": {
+                        "description": "An error has occurred"
+                    }
+                }
+            }
+        },
+        "/api/members/{id}": {
+            "get": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Display a member.",
+                "description": "Display a member by id.",
+                "operationId": "80f0d8d79a63de8091cbd614c69bb185",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of member",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "full_name": "Pedro",
+                                    "description": "Pedro is important member",
+                                    "image": "image.png",
+                                    "facebook_url": "facebook",
+                                    "linkedin_url": "linkedin",
+                                    "created_at": "2023-06-17T18:25:27.000000Z",
+                                    "updated_at": "2023-06-17T18:25:27.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Member not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Update an member",
+                "description": "Update a member\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "d6c64df7108dddba3753fea5e8bb06b1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of member",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "full_name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "facebook_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "linkedin_url": {
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Member updated successfully"
+                    },
+                    "404": {
+                        "description": "Member not found"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Delete a member",
+                "description": "Delete a member",
+                "operationId": "92d9f33cedb4df8dc43b10a786341cc0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of member",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Member delete succesfully"
+                    },
+                    "404": {
+                        "description": "Member not found"
+                    },
+                    "default": {
+                        "description": "An Error ocurred"
+                    }
+                }
+            }
         }
     }
 }
