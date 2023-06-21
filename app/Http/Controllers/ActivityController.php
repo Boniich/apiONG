@@ -179,13 +179,17 @@ class ActivityController extends Controller
 
 
             if ($request->has('user_id')) {
-                User::findOrFail($request->user_id);
+                if (is_null(User::find($request->user_id))) {
+                    return notFoundData404("User not found");
+                }
 
                 $newActivity->user_id = $request->user_id;
             }
 
             if ($request->has('category_id')) {
-                Category::findOrFail($request->category_id);
+                if (Category::findOrFail($request->category_id)) {
+                    return notFoundData404("Category not found");
+                }
 
                 $newActivity->category_id = $request->category_id;
             }
@@ -193,8 +197,6 @@ class ActivityController extends Controller
             $newActivity->save();
 
             return okResponse200($newActivity, "Activity created successfully");
-        } catch (ModelNotFoundException $ex) {
-            return notFoundData404("ID of USER or CATEGORY not found");
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
@@ -275,7 +277,7 @@ class ActivityController extends Controller
             }
 
             if ($request->has('user_id')) {
-                $user = User::findOrFail($request->user_id);
+                $user = User::find($request->user_id);
 
                 if (is_null($user)) {
                     return notFoundData404("User not found");
@@ -285,7 +287,7 @@ class ActivityController extends Controller
             }
 
             if ($request->has('category_id')) {
-                $category = Category::findOrFail($request->category_id);
+                $category = Category::find($request->category_id);
 
                 if (is_null($category)) {
                     return notFoundData404("Category not found");
