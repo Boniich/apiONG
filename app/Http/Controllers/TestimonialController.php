@@ -62,16 +62,24 @@ class TestimonialController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string',
-                'image' => 'required|image',
-                'description' => 'required|string'
+                'name' => 'string',
+                'image' => 'image',
+                'description' => 'string'
             ]);
 
             $testimonial = Testimonial::findOrFail($id);
 
-            $testimonial->name = $request->name;
-            $testimonial->image = updateLoadedImage($testimonial->image, $request->image);
-            $testimonial->description = $request->description;
+            if ($request->has('name')) {
+                $testimonial->name = $request->name;
+            }
+
+            if ($request->has('image')) {
+                $testimonial->image = updateLoadedImage($testimonial->image, $request->image);
+            }
+
+            if ($request->has('description')) {
+                $testimonial->description = $request->description;
+            }
 
             $testimonial->update();
 
