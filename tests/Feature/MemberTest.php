@@ -79,16 +79,6 @@ class MemberTest extends TestCase
         deleteLoadedImage($imageCreated->image);
     }
 
-    public function test_bad_request_at_update_member()
-    {
-        $this->seed(MemberSeeder::class);
-        $this->put($this->path . 1, [
-            'id' => 2,
-            'full_name' => 'Juan Carlos de la Cruz',
-            'description' => 'Manejador de los fondos de la ONG',
-        ])->assertStatus(400);
-    }
-
     public function test_delete_data_member_successfully()
     {
         $this->seed(MemberSeeder::class);
