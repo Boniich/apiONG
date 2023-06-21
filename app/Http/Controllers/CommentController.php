@@ -170,7 +170,7 @@ class CommentController extends Controller
             }
 
             if ($request->has('news_id')) {
-                $news = News::findOrFail($request->news_id);
+                $news = News::find($request->news_id);
 
                 if (is_null($news)) {
                     return notFoundData404("News not found");
@@ -180,7 +180,7 @@ class CommentController extends Controller
             }
 
             if ($request->has('user_id')) {
-                $user = User::findOrFail($request->user_id);
+                $user = User::find($request->user_id);
 
                 if (is_null($user)) {
                     return notFoundData404("User not found");
@@ -266,7 +266,7 @@ class CommentController extends Controller
             }
 
             if ($request->has('news_id')) {
-                $news = News::findOrFail($request->news_id);
+                $news = News::find($request->news_id);
 
                 if (is_null($news)) {
                     return notFoundData404("News not found");
@@ -277,7 +277,7 @@ class CommentController extends Controller
 
 
             if ($request->has('user_id')) {
-                $user = User::findOrFail($request->user_id);
+                $user = User::find($request->user_id);
 
                 if (is_null($user)) {
                     return notFoundData404("User not found");
