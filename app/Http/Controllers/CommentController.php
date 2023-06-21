@@ -8,8 +8,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isNull;
-
 class CommentController extends Controller
 {
     private string $notFoundMsg = "Comments not found";
