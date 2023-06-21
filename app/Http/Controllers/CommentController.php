@@ -107,15 +107,15 @@ class CommentController extends Controller
             $comment = Comment::findOrFail($id);
 
 
-            if ($request->has($request->text)) {
+            if ($request->has('text')) {
                 $comment->text = $request->text;
             }
 
-            if ($request->has($request->image)) {
+            if ($request->has('image')) {
                 $comment->image = updateLoadedImage($comment->image, $request->image);
             }
 
-            if ($request->has($request->visble)) {
+            if ($request->has('visible')) {
                 $comment->visible = $request->visible;
             }
 
