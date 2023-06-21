@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class CommentController extends Controller
 {
     private string $notFoundMsg = "Comments not found";
@@ -64,23 +66,28 @@ class CommentController extends Controller
             }
 
             if ($request->has('news_id')) {
-                News::findOrFail($request->news_id);
+                $news = News::findOrFail($request->news_id);
+
+                if (is_null($news)) {
+                    return notFoundData404("News not found");
+                }
 
                 $newComment->news_id = $request->news_id;
             }
 
             if ($request->has('user_id')) {
-                User::findOrFail($request->user_id);
+                $user = User::findOrFail($request->user_id);
+
+                if (is_null($user)) {
+                    return notFoundData404("User not found");
+                }
 
                 $newComment->user_id = $request->user_id;
             }
 
-
             $newComment->save();
 
             return okResponse200($newComment, "Comment created successfully");
-        } catch (ModelNotFoundException $ex) {
-            return notFoundData404("ID of USER or NEWS not found");
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
