@@ -512,10 +512,6 @@
                                     "description"
                                 ],
                                 "properties": {
-                                    "id": {
-                                        "type": "integer",
-                                        "format": "string"
-                                    },
                                     "name": {
                                         "type": "string",
                                         "format": "string"

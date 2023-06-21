@@ -180,7 +180,6 @@ class CategoryController extends Controller
      *          required=true,
      *          @OA\JsonContent(
      *          required={"name","description"},
-     *          @OA\Property(property="id", type="integer", format="string"),
      *          @OA\Property(property="name", type="string", format="string"),
      *          @OA\Property(property="description", type="string", format="string" ),
      *          @OA\Property(property="image", type="string", format="string" ),
@@ -204,30 +203,28 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $category = Category::findOrFail($id);
-
             $request->validate([
                 'name' => 'string',
                 'description' => 'string',
                 'image' => 'image'
             ]);
 
-            $newCategory = Category::findOrFail($id);
+            $category = Category::findOrFail($id);
 
             if ($request->has('name')) {
-                $newCategory->name = $request->name;
+                $category->name = $request->name;
             }
 
             if ($request->has('description')) {
-                $newCategory->description = $request->description;
+                $category->description = $request->description;
             }
 
             if ($request->has('image')) {
-                $newCategory->image = $request->image;
+                $category->image = updateLoadedImage($category->image, $request->image);
             }
 
-            $newCategory->update();
-            return okResponse200($category, "Categories updated succesfully");
+            $category->update();
+            return okResponse200($category, "Category updated succesfully");
         } catch (ModelNotFoundException $ex) {
             return notFoundData404($this->notFoundMsg);
         } catch (\Throwable $th) {
