@@ -64,16 +64,24 @@ class SocialMediaItemController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string',
-                'image' => 'required|image',
-                'url' => 'required|string'
+                'name' => 'string',
+                'image' => 'image',
+                'url' => 'string'
             ]);
 
             $socialMediaItem = SocialMediaItem::findOrFail($id);
 
-            $socialMediaItem->name = $request->name;
-            $socialMediaItem->image = updateLoadedImage($socialMediaItem->image, $request->image);
-            $socialMediaItem->url = $request->url;
+            if ($request->has('name')) {
+                $socialMediaItem->name = $request->name;
+            }
+
+            if ($request->has('image')) {
+                $socialMediaItem->image = updateLoadedImage($socialMediaItem->image, $request->image);
+            }
+
+            if ($request->has('url')) {
+                $socialMediaItem->url = $request->url;
+            }
 
             $socialMediaItem->update();
 
