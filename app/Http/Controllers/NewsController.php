@@ -57,22 +57,25 @@ class NewsController extends Controller
 
 
             if ($request->has('user_id')) {
-                User::findOrFail($request->user_id);
+
+                if (is_null(User::find($request->user_id))) {
+                    return notFoundData404("User not found");
+                }
 
                 $newNews->user_id = $request->user_id;
             }
 
             if ($request->has('category_id')) {
-                Category::findOrFail($request->category_id);
 
-                $newNews->user_id = $request->category_id;
+                if (is_null(Category::find($request->category_id))) {
+                    return notFoundData404("Category not found");
+                }
+                $newNews->category_id = $request->category_id;
             }
 
             $newNews->save();
 
-            return okResponse200($newNews, "Activity created successfully");
-        } catch (ModelNotFoundException $ex) {
-            return notFoundData404("ID of USER or CATEGORY not found");
+            return okResponse200($newNews, "News created successfully");
         } catch (\Throwable $th) {
             return badRequestResponse400();
         }
@@ -93,25 +96,25 @@ class NewsController extends Controller
             $news = News::findOrFail($id);
 
 
-            if ($request->has($request->name)) {
+            if ($request->has('name')) {
                 $news->name = $request->name;
             }
 
-            if ($request->has($request->slug)) {
+            if ($request->has('slug')) {
                 $news->slug = $request->slug;
             }
 
 
-            if ($request->has($request->content)) {
+            if ($request->has('content')) {
                 $news->content = $request->content;
             }
 
-            if ($request->has($request->image)) {
+            if ($request->has('image')) {
                 $news->image = updateLoadedImage($news->image, $request->image);
             }
 
             if ($request->has('user_id')) {
-                $user = User::findOrFail($request->user_id);
+                $user = User::find($request->user_id);
 
                 if (is_null($user)) {
                     return notFoundData404("User not found");
@@ -121,13 +124,13 @@ class NewsController extends Controller
             }
 
             if ($request->has('category_id')) {
-                $category = Category::findOrFail($request->category_id);
+                $category = Category::find($request->category_id);
 
                 if (is_null($category)) {
                     return notFoundData404("Category not found");
                 }
 
-                $news->user_id = $request->category_id;
+                $news->category_id = $request->category_id;
             }
 
 
