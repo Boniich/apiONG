@@ -2390,6 +2390,217 @@
                     }
                 }
             }
+        },
+        "/api/testimonials": {
+            "get": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Display a listing of testimonials.",
+                "description": "Display a listing of testimonials.",
+                "operationId": "321a02623ad0fe4449f638acabca2bcb",
+                "responses": {
+                    "200": {
+                        "description": "Testimonials retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "Testimonio 1",
+                                    "image": "image-testimonial-seeder.png",
+                                    "description": "Descripcion del testimonio 1",
+                                    "created_at": "2023-06-17T18:25:26.000000Z",
+                                    "updated_at": "2023-06-17T18:25:26.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An error ocurred"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Create a new testimonial",
+                "description": "Create a new testimonial.\nNote: This endpoint does not work in swagger cause is not possible upload an image here.",
+                "operationId": "e8776deeaec685ccc5864afa10a65681",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "image"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Testimonial created successfully"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "default": {
+                        "description": "An error has occurred"
+                    }
+                }
+            }
+        },
+        "/api/testimonials/{id}": {
+            "get": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Display an testimonial.",
+                "description": "Display a testimonial by id.",
+                "operationId": "b2cf525c1d45bb4f02e4f1e5812bd248",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of testimonial",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Testimonial retrived succesffully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 1,
+                                    "name": "Testimonio 1",
+                                    "image": "image-testimonial-seeder.png",
+                                    "description": "Descripcion del testimonio 1",
+                                    "created_at": "2023-06-17T18:25:26.000000Z",
+                                    "updated_at": "2023-06-17T18:25:26.000000Z"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Testimonial not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Update a testimonial",
+                "description": "Update a testimonial\nNote: This endpoint does not work in swagger if you add the field \"image\" cause is not possible upload an image here.",
+                "operationId": "c578883978b2f1d4d0db10d67bd3fde8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of testimonial",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "string"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "format": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Testimonial updated successfully"
+                    },
+                    "404": {
+                        "description": "Testimonial not found"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Testimonials"
+                ],
+                "summary": "Delete a testimonial",
+                "description": "Delete a testimonial",
+                "operationId": "44b55fdf31cec0213416ce79d03fc909",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of testimonial",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Testimonial delete succesfully"
+                    },
+                    "404": {
+                        "description": "Testimonial not found"
+                    },
+                    "default": {
+                        "description": "An Error ocurred"
+                    }
+                }
+            }
         }
     }
 }

@@ -11,6 +11,37 @@ class TestimonialController extends Controller
 
     private string $notFoundMsg = "Testimonial not found";
 
+    /**
+     * Display a listing of testimonials.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/testimonials",
+     *     tags={"Testimonials"},
+     *     summary="Display a listing of testimonials.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Testimonials retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "Testimonio 1",
+     *                          "image": "image-testimonial-seeder.png",
+     *                          "description": "Descripcion del testimonio 1",
+     *                          "created_at": "2023-06-17T18:25:26.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:26.000000Z"
+     *       })},
+     *     ),
+     *     @OA\Response(
+     *         response="default",
+     *         description="An error ocurred"
+     *     )
+     * ) 
+     */
+
+
     public function index()
     {
         try {
@@ -21,6 +52,43 @@ class TestimonialController extends Controller
             return anErrorOcurred();
         }
     }
+
+    /**
+     * Display a testimonial by id.
+     * @return \Illuminate\Http\Response
+     *
+     * @OA\Get(
+     *     path="/api/testimonials/{id}",
+     *     tags={"Testimonials"},
+     *     summary="Display an testimonial.",
+     *     @OA\Parameter(
+     *          description="id of testimonial",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Testimonial retrived succesffully",
+     *         content={
+     *                  @OA\MediaType(
+     *                      mediaType="application/json",
+     *                      example={
+     *                          "id": 1,
+     *                          "name": "Testimonio 1",
+     *                          "image": "image-testimonial-seeder.png",
+     *                          "description": "Descripcion del testimonio 1",
+     *                          "created_at": "2023-06-17T18:25:26.000000Z",
+     *                          "updated_at": "2023-06-17T18:25:26.000000Z"
+     *       })},
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Testimonial not found"
+     *     )
+     * ) 
+     */
 
     public function show($id)
     {
@@ -34,6 +102,41 @@ class TestimonialController extends Controller
             return badRequestResponse400();
         }
     }
+
+
+    /**
+     * Create a new testimonial.
+     * Note: This endpoint does not work in swagger cause is not possible upload an image here.
+     * @OA\Post(
+     *      path="/api/testimonials",
+     *      summary="Create a new testimonial",
+     *      tags={"Testimonials"},
+     * 
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          required={"name","description", "image"},
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="image", type="string", format="string" ),
+     *          @OA\Property(property="description", type="string", format="string" ),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Testimonial created successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An error has occurred"
+     *      )
+     * )
+     */
+
 
     public function store(Request $request)
     {
@@ -57,6 +160,44 @@ class TestimonialController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Update a testimonial
+     * Note: This endpoint does not work in swagger if you add the field "image" cause is not possible upload an image here.
+     * @OA\Put(
+     *      path="/api/testimonials/{id}",
+     *      summary="Update a testimonial",
+     *      tags={"Testimonials"},
+     *      @OA\Parameter(
+     *          description="id of testimonial",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          @OA\Property(property="id", type="integer", format="string"),
+     *          @OA\Property(property="name", type="string", format="string"),
+     *          @OA\Property(property="image", type="string", format="string" ),
+     *          @OA\Property(property="description", type="string", format="string" ),
+     *                    ),
+     *              ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Testimonial updated successfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Testimonial not found"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="bad request"  
+     *      ),
+     * )
+     */
 
     public function update(Request $request, $id)
     {
@@ -90,6 +231,37 @@ class TestimonialController extends Controller
             return badRequestResponse400();
         }
     }
+
+    /**
+     * Delete a testimonial
+     * @OA\Delete(
+     *      path="/api/testimonials/{id}",
+     *      summary="Delete a testimonial",
+     *      tags={"Testimonials"},
+     * 
+     *       @OA\Parameter(
+     *          description="id of testimonial",
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Testimonial delete succesfully"  
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Testimonial not found"  
+     *      ),
+     *      @OA\Response(
+     *          response="default",
+     *          description="An Error ocurred"
+     *      )
+     * )
+     */
+
+
     public function delete($id)
     {
         try {
