@@ -17,11 +17,17 @@ class UserController extends Controller
     public function index(Request $request)
     {
         try {
+            $limit = 5;
+
+            if ($request->has('limit')) {
+                $limit = $request->limit;
+            }
+
             if ($request->has('search')) {
                 $searchTerm = $request->input('search');
-                $users = User::where('name', 'LIKE', '%' . $searchTerm . '%')->orWhere('email', 'LIKE', $searchTerm)->limit(10)->get();
+                $users = User::where('name', 'LIKE', '%' . $searchTerm . '%')->orWhere('email', 'LIKE', $searchTerm)->limit($limit)->get();
             } else {
-                $users = User::limit(10)->get();
+                $users = User::limit($limit)->get();
             }
 
             foreach ($users as $key => $value) {
