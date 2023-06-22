@@ -44,10 +44,21 @@ class MemberController extends Controller
      * ) 
      */
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $data = Member::all();
+            $limit = 5;
+
+            if ($request->has('limit')) {
+                $limit = $request->limit;
+            }
+
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $data = Member::where('full_name', 'LIKE', '%' . $searchTerm . '%')->limit($limit)->get();
+            } else {
+                $data = Member::limit($limit)->get();
+            }
 
             return response()->json(successResponse($data, "Members retrived successfully"));
         } catch (\Throwable $th) {
