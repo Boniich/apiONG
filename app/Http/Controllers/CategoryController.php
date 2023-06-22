@@ -41,11 +41,21 @@ class CategoryController extends Controller
      * ) 
      */
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $categories = Category::all();
+            $limit = 5;
 
+            if ($request->has('limit')) {
+                $limit = $request->limit;
+            }
+
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $categories = Category::where('name', 'LIKE', '%' . $searchTerm . '%')->limit($limit)->get();
+            } else {
+                $categories = Category::limit($limit)->get();
+            }
             return okResponse200($categories, "Categories retrived succesfully");
         } catch (\Throwable $th) {
             return anErrorOcurred();
