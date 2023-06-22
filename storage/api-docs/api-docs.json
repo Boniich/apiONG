@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "ONG API by Boniich",
-        "description": "L5 Swagger OpenApi description",
+        "description": "This API is a copy of Alkemy ONG API used in my React acceleration.",
         "contact": {
             "email": "boniichDev@gmail.com"
         },

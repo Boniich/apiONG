@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
  * @OA\Info(
  *      version="1.0.0",
  *      title="ONG API by Boniich",
- *      description="L5 Swagger OpenApi description",
+ *      description="This API is a copy of Alkemy ONG API used in my React acceleration.",
  *      @OA\Contact(
  *          email="boniichDev@gmail.com"
  *      )
