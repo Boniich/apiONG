@@ -20,6 +20,27 @@ class NewsController extends Controller
      *     path="/api/news",
      *     tags={"News"},
      *     summary="Display a listing of news.",
+     *     @OA\Parameter(
+     *          description="Search a term",
+     *          in="query",
+     *          name="search",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *     @OA\Parameter(
+     *          description="Category a id",
+     *          in="query",
+     *          name="category",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Parameter(
+     *          description="Limit of entries retrived",
+     *          in="query",
+     *          name="limit",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
      *     @OA\Response(
      *         response=200,
      *         description="News retrived succesffully",
