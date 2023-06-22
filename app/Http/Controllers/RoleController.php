@@ -11,6 +11,12 @@ class RoleController extends Controller
 
     private string $notFoundMsg = "Role not found";
 
+
+    public function __construct()
+    {
+        $this->middleware('can:roles.update')->only('update');
+    }
+
     /**
      * Display a listing of roles.
      * @return \Illuminate\Http\Response
