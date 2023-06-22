@@ -44,10 +44,21 @@ class SlideController extends Controller
      * ) 
      */
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $slides = Slide::all();
+            $limit = 5;
+
+            if ($request->has('limit')) {
+                $limit = $request->limit;
+            }
+
+            if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $slides = Slide::where('name', 'LIKE', '%' . $searchTerm . '%')->orWhere('description', 'LIKE', $searchTerm)->limit($limit)->get();
+            } else {
+                $slides = Slide::limit($limit)->get();
+            }
 
             return okResponse200($slides, "Slides retrived successfully");
         } catch (\Throwable $th) {
