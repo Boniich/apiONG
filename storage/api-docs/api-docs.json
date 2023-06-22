@@ -1027,6 +1027,26 @@
                 "summary": "Display a listing of members.",
                 "description": "Display a listing of members.",
                 "operationId": "20e6baf76421bba133e9048dcdbe7355",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search a term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of entries retrived",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Members retrived succesffully",

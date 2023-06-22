@@ -20,6 +20,20 @@ class MemberController extends Controller
      *     path="/api/members",
      *     tags={"Members"},
      *     summary="Display a listing of members.",
+     *     @OA\Parameter(
+     *          description="Search a term",
+     *          in="query",
+     *          name="search",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Parameter(
+     *          description="Limit of entries retrived",
+     *          in="query",
+     *          name="limit",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
      *     @OA\Response(
      *         response=200,
      *         description="Members retrived succesffully",
