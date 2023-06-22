@@ -45,10 +45,34 @@ class NewsController extends Controller
      * ) 
      */
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $news = News::all();
+
+            $limit = 5;
+
+            if ($request->has('limit')) {
+                $limit = $request->limit;
+            }
+
+            if ($request->has('search') && $request->has('category')) {
+                $searchTerm = $request->input('search');
+                $categoryId = $request->input('category');
+                $news = News::where('name', 'LIKE', '%' . $searchTerm . '%')->where('category_id', $categoryId)->limit($limit)->get();
+            } else if ($request->has('search')) {
+                $searchTerm = $request->input('search');
+                $news = News::where('name', 'LIKE', '%' . $searchTerm . '%')->limit($limit)->get();
+            } else if ($request->has('category')) {
+                $categoryId = $request->input('category');
+                $news = News::where('category_id', $categoryId)->limit($limit)->get();
+            } else {
+
+                $news = News::limit($limit)->get();
+            }
+
+
+
+
 
             return okResponse200($news, "News retrived successfully");
         } catch (\Throwable $th) {
