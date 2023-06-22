@@ -11,10 +11,10 @@ use Illuminate\Http\Request;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="API ONG by Boniich",
+ *      title="ONG API by Boniich",
  *      description="L5 Swagger OpenApi description",
  *      @OA\Contact(
- *          email="julio.yanez@codigoxules.org"
+ *          email="boniichDev@gmail.com"
  *      )
  * )
  */

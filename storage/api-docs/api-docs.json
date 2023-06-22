@@ -1,10 +1,10 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API ONG by Boniich",
+        "title": "ONG API by Boniich",
         "description": "L5 Swagger OpenApi description",
         "contact": {
-            "email": "julio.yanez@codigoxules.org"
+            "email": "boniichDev@gmail.com"
         },
         "version": "1.0.0"
     },
