@@ -19,6 +19,20 @@ class CategoryController extends Controller
      *     path="/api/categories",
      *     tags={"Categories"},
      *     summary="Display a listing of categories.",
+     *     @OA\Parameter(
+     *          description="Search a term",
+     *          in="query",
+     *          name="search",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
+     *      @OA\Parameter(
+     *          description="Limit of entries retrived",
+     *          in="query",
+     *          name="limit",
+     *          required=false,
+     *          @OA\Schema(type="string"),
+     *      ),
      *     @OA\Response(
      *         response=200,
      *         description="Categories retrived succesffully",
