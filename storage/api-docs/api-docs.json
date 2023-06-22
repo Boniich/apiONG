@@ -1996,6 +1996,26 @@
                 "summary": "Display a listing of slides.",
                 "description": "Display a listing of Slides.",
                 "operationId": "41cb5469a5af54342a37168eef0efb27",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search a term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of entries retrived",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Slides retrived succesffully",
