@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class RoleTest extends TestCase
@@ -41,6 +43,13 @@ class RoleTest extends TestCase
     public function test_update_role_data_successfully(): void
     {
         $this->seed(RoleSeeder::class);
+
+        $user = User::factory()->create();
+
+        $user->assignRole('Admin');
+
+        Sanctum::actingAs($user);
+
         $this->put($this->path . 1, [
             'name' => 'testing role',
         ])->assertStatus(200);
@@ -49,6 +58,12 @@ class RoleTest extends TestCase
     public function test_not_found_role_data_to_update(): void
     {
         $this->seed(RoleSeeder::class);
+        $user = User::factory()->create();
+
+        $user->assignRole('Admin');
+
+        Sanctum::actingAs($user);
+
         $this->put($this->path . 10, [
             "name" => "testing role",
         ])->assertStatus(404);
@@ -57,6 +72,12 @@ class RoleTest extends TestCase
     public function test_bad_request_to_update_role_data(): void
     {
         $this->seed(RoleSeeder::class);
+        $user = User::factory()->create();
+
+        $user->assignRole('Admin');
+
+        Sanctum::actingAs($user);
+
         $this->put($this->path . 1, [
             "title" => "testing role",
         ])->assertStatus(400);
