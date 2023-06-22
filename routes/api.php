@@ -73,7 +73,10 @@ Route::delete('projects/{id}', [ProjectController::class, 'delete']);
 
 Route::get('roles', [RoleController::class, 'index']);
 Route::get('roles/{id}', [RoleController::class, 'show']);
-Route::put('roles/{id}', [RoleController::class, 'update']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::put('roles/{id}', [RoleController::class, 'update']);
+});
 
 Route::get('users/{id}', [UserController::class, 'show']);
 Route::get('users/', [UserController::class, 'index']);
